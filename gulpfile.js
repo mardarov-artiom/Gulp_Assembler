@@ -1,7 +1,9 @@
 const gulp = require('gulp'),
     del = require('del'),
     cache = require('gulp-cache'),
-    less = require('gulp-less'),
+    less = require('gulp-less'), //comment or uncomment
+    // sass = require('gulp-sass'), // what you want to use
+    // sass.compiler = require('node-sass'),
     watch = require('gulp-watch'),
     plumber = require('gulp-plumber'),
     include = require('gulp-file-include'),
@@ -11,6 +13,7 @@ const gulp = require('gulp'),
     cheerio = require('gulp-cheerio'),
     replace = require('gulp-replace'),
     cleanCss = require('gulp-clean-css'),
+    babel = require('gulp-babel'),
     uglifyJs = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     browserSync = require('browser-sync').create();
@@ -32,6 +35,8 @@ const path = {
         css: 'src/css/main.css',
         less: 'src/less/main.less',
         less_css: 'src/css/partials/',
+        // sass: 'src/sass/main.sass',
+        // sass_css: 'src/css/partials/',
         img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*',
         svg: 'src/svg/*.svg'
@@ -40,6 +45,7 @@ const path = {
         html: 'src/**/*.html',
         js: 'src/js/**/*.js',
         less: 'src/less/**/*.less',
+        // sass: 'src/sass/**/*.sass',
         css: 'src/css/**/*.css',
         img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*',
@@ -53,6 +59,8 @@ const plumberOptions = {
         this.emit('end');
     }
 };
+
+
 
 const autoprefixerOptions = {
     browsers: ['last 15 versions', "ie 9", 'android 4', 'opera 12.1'],
@@ -75,6 +83,14 @@ function lessDev() {
         .pipe(browserSync.stream());
 }
 
+// function sassDev() {
+//     return gulp.src(path.src.less)
+//         .pipe(plumber(plumberOptions))
+//         .pipe(sass().on('error', sass.logError))
+//         .pipe(gulp.dest(path.src.less_css))
+//         .pipe(browserSync.stream());
+// }
+
 function css() {
     return gulp.src(path.src.css)
         .pipe(plumber(plumberOptions))
@@ -89,6 +105,9 @@ function js() {
     return gulp.src(path.src.js)
         .pipe(plumber(plumberOptions))
         .pipe(include())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
         .pipe(uglifyJs())
         .pipe(gulp.dest(path.build.js))
         .pipe(browserSync.stream());
@@ -150,6 +169,7 @@ function watcher() {
 
     gulp.watch(path.watch.html, html);
     gulp.watch(path.watch.less, lessDev);
+    // gulp.watch(path.watch.sass, sassDev);
     gulp.watch(path.watch.css, css);
     gulp.watch(path.watch.js, js);
     gulp.watch(path.watch.fonts, fonts);
@@ -159,5 +179,5 @@ function watcher() {
 
 }
 
-gulp.task('default', gulp.series(clean, html, lessDev, css, js, fonts, img, svg, watcher));
+gulp.task('default', gulp.series(clean, html, lessDev, /* sassDev, */ css, js, fonts, svg, img, watcher));
 gulp.task('build', gulp.series(clean, html, lessDev, css, js, fonts, img, svg));

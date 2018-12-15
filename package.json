@@ -1,6 +1,6 @@
 {
   "name": "mA",
-  "version": "1.10.18",
+  "version": "15.12.18",
   "description": "Project assembler",
   "main": "gulpfile.js",
   "scripts": {
@@ -9,10 +9,13 @@
   "author": "mA",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
     "browser-sync": "^2.26.3",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-cache": "^1.0.2",
     "gulp-cheerio": "^0.6.3",
     "gulp-clean-css": "^3.10.0",
@@ -22,10 +25,12 @@
     "gulp-less": "^4.0.1",
     "gulp-plumber": "^1.2.0",
     "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.0.2",
     "gulp-svg-sprite": "^1.5.0",
     "gulp-svgmin": "^2.1.0",
     "gulp-uglify": "^3.0.1",
-    "gulp-watch": "^5.0.1"
+    "gulp-watch": "^5.0.1",
+    "node-sass": "^4.11.0"
   },
   "dependencies": {}
 }
