@@ -180,4 +180,4 @@ function watcher() {
 }
 
 gulp.task('default', gulp.series(clean, html, lessDev, /* sassDev, */ css, js, fonts, svg, img, watcher));
-gulp.task('build', gulp.series(clean, html, lessDev, css, js, fonts, img, svg));
+gulp.task('build', gulp.series(clean, html, /* sassDev, */ lessDev, css, js, fonts, img, svg));
