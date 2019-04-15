@@ -1,2 +1,2 @@
-@@include('partials/reset.css');
+@@include('../../node_modules/normalize.css/normalize.css')
 @@include('partials/main.css');

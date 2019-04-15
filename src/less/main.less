@@ -1,0 +1,38 @@
+
+
+
+html,body {
+ 	overflow-x: hidden;
+}
+
+*, *:before, &:after {
+	box-sizing: border-box;
+	outline: none !important;
+}
+
+img {
+	vertical-align: middle;
+}
+
+.container {
+	width: 100%;
+	max-width: 1200px;
+	padding: 0 15px;
+	position: relative;
+	margin: 0 auto;
+}
+
+.flex-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.no_scroll {
+ 	overflow: hidden;
+}
+
+@import 'common/colors.less';
+@import 'common/fixed_overlay.less';
+@import 'common/slick.less';
+
+@import 'media/main.less';

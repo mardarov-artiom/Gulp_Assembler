@@ -1,0 +1,17 @@
+#fixed_overlay {
+	width: 100%;
+	min-height: 100vh;
+	background-color: rgba(0,0,0,.7);
+	transition: .6s;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10000;
+	opacity: 0;
+	visibility: hidden;
+}
+
+#fixed_overlay.active {
+	opacity: 1;
+	visibility: visible;
+}

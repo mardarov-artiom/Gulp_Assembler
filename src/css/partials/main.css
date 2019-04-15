@@ -1,0 +1,54 @@
+html,
+body {
+  overflow-x: hidden;
+}
+*,
+*:before,
+:after {
+  box-sizing: border-box;
+  outline: none !important;
+}
+img {
+  vertical-align: middle;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 15px;
+  position: relative;
+  margin: 0 auto;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.no_scroll {
+  overflow: hidden;
+}
+#fixed_overlay {
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: 0.6s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+}
+#fixed_overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.slick-slide img {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+.slick-list {
+  margin: 0 -10px;
+}
+.slick-slide {
+  margin: 0 10px;
+}
