@@ -1,2 +1,4 @@
 @@include('../../node_modules/normalize.css/normalize.css')
-@@include('partials/main.css');
+@@include('../../node_modules/slick-carousel/slick/slick.css')
+@@include('../../node_modules/slick-carousel/slick/slick-theme.css')
+@@include('partials/main.css')

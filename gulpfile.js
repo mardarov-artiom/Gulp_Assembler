@@ -59,7 +59,7 @@ const plumberOptions = {
 
 const autoprefixerOptions = {
     grid: true,
-    browsers: ['last 15 versions', 'ie 9', 'android 4', 'opera 12.1'],
+    overrideBrowserslist: ['last 15 versions', 'ie 9', 'android 4', 'opera 12.1'],
     cascade: false
 };
 
