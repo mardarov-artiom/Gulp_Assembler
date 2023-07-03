@@ -6,7 +6,7 @@ const del = require('del');
 const plumber = require('gulp-plumber');
 const include = require('gulp-include');
 const browserSync = require('browser-sync').create();
-const scss = require('gulp-sass')(require('sass'));
+const less = require('gulp-less');
 const importCss = require('gulp-import-css');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCss = require('gulp-cleancss');
@@ -36,11 +36,9 @@ const path = {
   src: {
     html: sourcePath + '*.html',
     js: sourcePath + 'js/main.js',
-    css: assetsPath + 'css/main.css',
-    // less: sourcePath + 'less/main.less',
-    // less_css: sourcePath + 'css/partials/',
-    scss: sourcePath + 'scss/main.scss',
-    scss_css: assetsPath + 'css/partials/',
+    css: assetsPath + 'css/styles.css',
+    less: sourcePath + 'less/styles.less',
+    less_css: assetsPath + 'css/',
     img: assetsPath + 'img/**/*.*',
     fonts: assetsPath + 'fonts/**/*.*',
     svg: assetsPath + 'svg/*.svg'
@@ -48,8 +46,7 @@ const path = {
   watch: {
     html: sourcePath + '**/*.html',
     js: sourcePath + 'js/**/*.js',
-    // less: sourcePath + 'less/**/*.less',
-    scss: sourcePath + 'scss/**/*.scss',
+    less: sourcePath + 'less/**/*.less',
     css: assetsPath + 'css/**/*.css',
     img: assetsPath + 'img/**/*.*',
     fonts: assetsPath + 'fonts/**/*.*',
@@ -79,12 +76,12 @@ function html() {
     .pipe(browserSync.stream());
 }
 
-function scssDev() {
-  return src(path.src.scss)
+function lessDev() {
+  return src(path.src.less)
     .pipe(plumber(plumberOptions))
-    .pipe(include())
-    .pipe(scss().on('error', scss.logError))
-    .pipe(dest(path.src.scss_css))
+    .pipe(less())
+    .pipe(rename(compiledCssName))
+    .pipe(dest(path.src.less_css))
     .pipe(browserSync.stream());
 }
 
@@ -176,8 +173,7 @@ function watcher() {
     });
 
     watch(path.watch.html, html);
-    watch(path.watch.scss, scssDev);
-    // watch(path.watch.less, lessDev);
+    watch(path.watch.less, lessDev);
     watch(path.watch.css, css);
     watch(path.watch.js, js);
     watch(path.watch.fonts, fonts);
