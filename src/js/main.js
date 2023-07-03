@@ -1,1 +1,1 @@
-@@include('partials/main.js');
+//= include ./partials/partials-main.js

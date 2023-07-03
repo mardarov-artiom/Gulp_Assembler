@@ -4,7 +4,7 @@ const {src, dest, watch} = require('gulp');
 const gulp = require('gulp');
 const del = require('del');
 const plumber = require('gulp-plumber');
-const include = require('gulp-file-include');
+const include = require('gulp-include');
 const browserSync = require('browser-sync').create();
 const scss = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
@@ -17,8 +17,9 @@ const replace = require('gulp-replace');
 const cache = require('gulp-cache');
 const imagemin = require('gulp-imagemin');
 
-const sourcePath = 'src/'
-const buildPath = 'build/'
+const sourcePath = 'src/';
+const assetsPath = sourcePath + 'assets/';
+const buildPath = 'build/';
 
 const path = {
   build: {
@@ -32,24 +33,24 @@ const path = {
   src: {
     html: sourcePath + '*.html',
     js: sourcePath + 'js/main.js',
-    css: sourcePath + 'css/main.css',
+    css: assetsPath + 'css/main.css',
     // less: sourcePath + 'less/main.less',
     // less_css: sourcePath + 'css/partials/',
     scss: sourcePath + 'scss/main.scss',
-    scss_css: sourcePath + 'css/partials/',
-    img: sourcePath + 'img/**/*.*',
-    fonts: sourcePath + 'fonts/**/*.*',
-    svg: sourcePath + 'svg/*.svg'
+    scss_css: assetsPath + 'css/partials/',
+    img: assetsPath + 'img/**/*.*',
+    fonts: assetsPath + 'fonts/**/*.*',
+    svg: assetsPath + 'svg/*.svg'
   },
   watch: {
     html: sourcePath + '**/*.html',
     js: sourcePath + 'js/**/*.js',
     // less: sourcePath + 'less/**/*.less',
     scss: sourcePath + 'scss/**/*.scss',
-    css: sourcePath + 'css/**/*.css',
-    img: sourcePath + 'img/**/*.*',
-    fonts: sourcePath + 'fonts/**/*.*',
-    svg: sourcePath + 'svg/*.svg'
+    css: assetsPath + 'css/**/*.css',
+    img: assetsPath + 'img/**/*.*',
+    fonts: assetsPath + 'fonts/**/*.*',
+    svg: assetsPath + 'svg/*.svg'
   },
   clean: './' + buildPath
 };
@@ -78,6 +79,7 @@ function html() {
 function scssDev() {
   return src(path.src.scss)
     .pipe(plumber(plumberOptions))
+    .pipe(include())
     .pipe(scss().on('error', scss.logError))
     .pipe(dest(path.src.scss_css))
     .pipe(browserSync.stream());

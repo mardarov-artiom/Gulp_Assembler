@@ -56,6 +56,10 @@ Deletes the `build` folder
 
 ---
 
+For more information about how to include / import files check 
+
+[gulp-include plugin](https://www.npmjs.com/package/gulp-include)
+
 ## License
 
 MIT © [Artiom Mardarov]()
