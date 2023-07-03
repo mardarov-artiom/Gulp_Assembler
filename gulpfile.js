@@ -6,7 +6,8 @@ const del = require('del');
 const plumber = require('gulp-plumber');
 const include = require('gulp-include');
 const browserSync = require('browser-sync').create();
-const less = require('gulp-less');
+const scss = require('gulp-sass')(require('sass'));
+const importCss = require('gulp-import-css');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCss = require('gulp-cleancss');
 const uglifyJs = require('gulp-uglify');
@@ -16,10 +17,12 @@ const svgSprite = require('gulp-svg-sprite');
 const replace = require('gulp-replace');
 const cache = require('gulp-cache');
 const imagemin = require('gulp-imagemin');
+const rename = require("gulp-rename");
 
 const sourcePath = 'src/';
 const assetsPath = sourcePath + 'assets/';
 const buildPath = 'build/';
+const compiledCssName = 'compiled.css';
 
 const path = {
   build: {
@@ -34,8 +37,10 @@ const path = {
     html: sourcePath + '*.html',
     js: sourcePath + 'js/main.js',
     css: assetsPath + 'css/main.css',
-    less: sourcePath + 'less/main.less',
-    less_css: assetsPath + 'css/partials/',
+    // less: sourcePath + 'less/main.less',
+    // less_css: sourcePath + 'css/partials/',
+    scss: sourcePath + 'scss/main.scss',
+    scss_css: assetsPath + 'css/partials/',
     img: assetsPath + 'img/**/*.*',
     fonts: assetsPath + 'fonts/**/*.*',
     svg: assetsPath + 'svg/*.svg'
@@ -43,7 +48,8 @@ const path = {
   watch: {
     html: sourcePath + '**/*.html',
     js: sourcePath + 'js/**/*.js',
-    less: sourcePath + 'less/**/*.less',
+    // less: sourcePath + 'less/**/*.less',
+    scss: sourcePath + 'scss/**/*.scss',
     css: assetsPath + 'css/**/*.css',
     img: assetsPath + 'img/**/*.*',
     fonts: assetsPath + 'fonts/**/*.*',
@@ -73,17 +79,18 @@ function html() {
     .pipe(browserSync.stream());
 }
 
-function lessDev() {
-  return src(path.src.less)
+function scssDev() {
+  return src(path.src.scss)
     .pipe(plumber(plumberOptions))
     .pipe(include())
-    .pipe(less())
-    .pipe(dest(path.src.less_css))
+    .pipe(scss().on('error', scss.logError))
+    .pipe(dest(path.src.scss_css))
     .pipe(browserSync.stream());
 }
 
 function css() {
   return src(path.src.css)
+    .pipe(importCss())
     .pipe(plumber(plumberOptions))
     .pipe(include())
     .pipe(autoprefixer(autoprefixerOptions))
@@ -169,7 +176,8 @@ function watcher() {
     });
 
     watch(path.watch.html, html);
-    watch(path.watch.less, lessDev);
+    watch(path.watch.scss, scssDev);
+    // watch(path.watch.less, lessDev);
     watch(path.watch.css, css);
     watch(path.watch.js, js);
     watch(path.watch.fonts, fonts);
