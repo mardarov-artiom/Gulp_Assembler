@@ -7,6 +7,7 @@ const plumber = require('gulp-plumber');
 const include = require('gulp-include');
 const browserSync = require('browser-sync').create();
 const scss = require('gulp-sass')(require('sass'));
+const importCss = require('gulp-import-css');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCss = require('gulp-cleancss');
 const uglifyJs = require('gulp-uglify');
@@ -16,10 +17,12 @@ const svgSprite = require('gulp-svg-sprite');
 const replace = require('gulp-replace');
 const cache = require('gulp-cache');
 const imagemin = require('gulp-imagemin');
+const rename = require("gulp-rename");
 
 const sourcePath = 'src/';
 const assetsPath = sourcePath + 'assets/';
 const buildPath = 'build/';
+const compiledCssName = 'compiled.css';
 
 const path = {
   build: {
@@ -33,9 +36,9 @@ const path = {
   src: {
     html: sourcePath + '*.html',
     js: sourcePath + 'js/main.js',
-    css: assetsPath + 'css/main.css',
-    scss: sourcePath + 'scss/main.scss',
-    scss_css: assetsPath + 'css/partials/',
+    css: assetsPath + 'css/styles.css',
+    scss: sourcePath + 'scss/styles.scss',
+    scss_css: assetsPath + 'css/',
     img: assetsPath + 'img/**/*.*',
     fonts: assetsPath + 'fonts/**/*.*',
     svg: assetsPath + 'svg/*.svg'
@@ -76,16 +79,16 @@ function html() {
 function scssDev() {
   return src(path.src.scss)
     .pipe(plumber(plumberOptions))
-    .pipe(include())
     .pipe(scss().on('error', scss.logError))
+    .pipe(rename(compiledCssName))
     .pipe(dest(path.src.scss_css))
     .pipe(browserSync.stream());
 }
 
 function css() {
   return src(path.src.css)
+    .pipe(importCss())
     .pipe(plumber(plumberOptions))
-    .pipe(include())
     .pipe(autoprefixer(autoprefixerOptions))
     .pipe(
       cleanCss({
