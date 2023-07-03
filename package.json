@@ -18,13 +18,10 @@
         "gulp-less": "^5.0.0",
         "gulp-plumber": "^1.2.1",
         "gulp-replace": "^1.1.4",
-        "gulp-sass": "^5.1.0",
         "gulp-svg-sprite": "^2.0.3",
         "gulp-svgmin": "^4.1.0",
         "gulp-uglify": "^3.0.2",
-        "gulp-watch": "^5.0.1",
-        "node-sass": "^9.0.0",
-        "sass": "^1.63.6"
+        "gulp-watch": "^5.0.1"
     },
     "scripts": {
         "start": "gulp watch",
