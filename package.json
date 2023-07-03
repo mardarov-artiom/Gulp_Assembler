@@ -15,7 +15,6 @@
         "gulp-cleancss": "^0.2.2",
         "gulp-cli": "^2.3.0",
         "gulp-imagemin": "^7.1.0",
-        "gulp-less": "^5.0.0",
         "gulp-plumber": "^1.2.1",
         "gulp-replace": "^1.1.4",
         "gulp-sass": "^5.1.0",

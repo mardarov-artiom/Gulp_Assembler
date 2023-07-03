@@ -1,1 +1,1 @@
-//= include ./partials/partials-main.js
+//= include ./partials/main.js

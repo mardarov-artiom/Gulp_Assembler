@@ -1,5 +1,7 @@
 ## Installation:
 
+```Note: if you want to use less - go to feature/less branch in project repo```
+
 ### Project is based on  [Node Package Manager (npm)](https://www.npmjs.com/).
 
 **Note: To use [npm](https://www.npmjs.com/) check if  [Node.js](https://nodejs.org/en/) is installed.**

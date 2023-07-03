@@ -34,8 +34,6 @@ const path = {
     html: sourcePath + '*.html',
     js: sourcePath + 'js/main.js',
     css: assetsPath + 'css/main.css',
-    // less: sourcePath + 'less/main.less',
-    // less_css: sourcePath + 'css/partials/',
     scss: sourcePath + 'scss/main.scss',
     scss_css: assetsPath + 'css/partials/',
     img: assetsPath + 'img/**/*.*',
@@ -45,7 +43,6 @@ const path = {
   watch: {
     html: sourcePath + '**/*.html',
     js: sourcePath + 'js/**/*.js',
-    // less: sourcePath + 'less/**/*.less',
     scss: sourcePath + 'scss/**/*.scss',
     css: assetsPath + 'css/**/*.css',
     img: assetsPath + 'img/**/*.*',
@@ -84,14 +81,6 @@ function scssDev() {
     .pipe(dest(path.src.scss_css))
     .pipe(browserSync.stream());
 }
-
-// function lessDev() {
-//   return src(path.src.less)
-//     .pipe(plumber(plumberOptions))
-//     .pipe(less())
-//     .pipe(dest(path.src.less_css))
-//     .pipe(browserSync.stream());
-// }
 
 function css() {
   return src(path.src.css)
@@ -181,7 +170,6 @@ function watcher() {
 
     watch(path.watch.html, html);
     watch(path.watch.scss, scssDev);
-    // watch(path.watch.less, lessDev);
     watch(path.watch.css, css);
     watch(path.watch.js, js);
     watch(path.watch.fonts, fonts);
@@ -192,7 +180,6 @@ function watcher() {
 
 exports.html = html;
 exports.scssDev = scssDev;
-// exports.lessDev = lessDev;
 exports.css = css;
 exports.js = js;
 exports.svg = svg;
@@ -200,5 +187,5 @@ exports.img = img;
 exports.fonts = fonts;
 exports.clean = clean;
 
-exports.build = gulp.series(clean, /* lessDev, */ scssDev, gulp.parallel(html, css, js, fonts, img, svg));
-exports.watch = gulp.series(clean, /* lessDev, */ scssDev, gulp.parallel(html, css, js, fonts, img, svg, watcher));
+exports.build = gulp.series(clean, scssDev, gulp.parallel(html, css, js, fonts, img, svg));
+exports.watch = gulp.series(clean, scssDev, gulp.parallel(html, css, js, fonts, img, svg, watcher));
